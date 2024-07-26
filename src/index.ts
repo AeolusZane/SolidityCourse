@@ -15,16 +15,17 @@ async function requestAccess() {
     return result && result.length > 0;
 }
 
-async function hasSigners(){
+async function hasSigners() {
     const metamask = getEth();
     const signers = await metamask.request({ method: "eth_accounts" }) as string[];
     return signers.length > 0;
 }
 
-async function getContract(){
+async function getContract() {
     // 1. 地址
     // 2. 方法名
     // 3. provider
+    // 4. signer
 
     if (!await hasSigners() && !await requestAccess()) {
         throw new Error("No ethereum provider found");
@@ -34,14 +35,31 @@ async function getContract(){
     const contract = new ethers.Contract(
         address,
         [
-            "function hello() pure public returns (string memory)"
+            "function count() public",
+            "function getCount() public view returns (uint)",
         ],
-        provider
+        await provider.getSigner()
     )
-    document.body.innerHTML = await contract.hello();
+    const counter = document.createElement("div");
+    async function getCount() {
+        counter.innerHTML = await contract.getCount();
+    }
+    getCount();
+    async function setCount() {
+        await contract.count();
+    }
+    const btn = document.createElement("button");
+    btn.innerHTML = "increment";
+    btn.onclick = async function () {
+        await setCount();
+        getCount();
+    }
+
+    document.body.appendChild(counter);
+    document.body.appendChild(btn);
 }
 
-async function main(){
+async function main() {
     await getContract();
 }
 

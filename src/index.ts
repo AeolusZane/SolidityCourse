@@ -38,7 +38,7 @@ async function getContract() {
             "function count() public",
             "function getCount() public view returns (uint)",
         ],
-        await provider.getSigner()
+        await provider.getSigner(),
     )
     const counter = document.createElement("div");
     async function getCount() {
@@ -46,12 +46,13 @@ async function getContract() {
     }
     getCount();
     async function setCount() {
-        await contract.count();
+        return await contract.count();
     }
     const btn = document.createElement("button");
     btn.innerHTML = "increment";
     btn.onclick = async function () {
-        await setCount();
+        const tx = await contract.count(); // transation提交，不是等待transaction完成
+        await tx.wait(); // 等待transaction完成
         getCount();
     }
 

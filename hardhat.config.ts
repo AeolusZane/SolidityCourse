@@ -1,6 +1,7 @@
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-ethers";
-
+const dotenv = require('dotenv');
+dotenv.config();
 type Config = import('hardhat/config').HardhatUserConfig
 
 const config: Config = {
@@ -9,6 +10,10 @@ const config: Config = {
     hardhat: {
       chainId: 31337
     },
+    sepolia_eth:{
+      url:`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts:[process.env.PRIVATE_KEY]
+    }
   }
 };
 

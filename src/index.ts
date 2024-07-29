@@ -32,7 +32,7 @@ async function getContract() {
         throw new Error("No ethereum provider found");
     }
     const provider = new ethers.BrowserProvider(getEth());
-    const address = process.env.CONTRACT_ADDRESS;
+    const address = "0x1eA11d3eEc51ed07c319046c04FAFdEc478Bc915";
     const contract = new ethers.Contract(
         address,
         abi,

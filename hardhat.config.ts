@@ -18,7 +18,7 @@ const config: Config = {
     // }
   },
   gasReporter: {
-    enabled: true
+    enabled: false
   }
 };
 

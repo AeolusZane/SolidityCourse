@@ -74,6 +74,7 @@ contract Hero {
         // [s h i m d]
         // [s h i m]
         // [s m i]
+        // [i m]
         uint len = 5;
         uint hero = uint(_class);
 

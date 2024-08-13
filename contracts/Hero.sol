@@ -1,5 +1,7 @@
 pragma solidity ^0.8.24;
 
+import "hardhat/console.sol";
+
 /**
 - 生成随机的英雄属性
 - 英雄属性：strength, health, intellect, magic, dexterity
@@ -42,7 +44,7 @@ contract Hero {
         return (hero >> 22) & 0x1F;
     }
 
-    function generateRandom() public view returns (uint) {
+    function generateRandom() public virtual view returns (uint) {
         return
             uint(
                 keccak256(
@@ -69,14 +71,15 @@ contract Hero {
         stats[2] = 12;
         stats[3] = 17;
         stats[4] = 22;
-
+        // [s h i m d]
+        // [s h i m]
+        // [s m i]
         uint len = 5;
         uint hero = uint(_class);
 
         do {
             uint pos = generateRandom() % len;
             uint value = (generateRandom() % (13 + len)) + 1;
-
             hero |= value << stats[pos];
 
             len--;

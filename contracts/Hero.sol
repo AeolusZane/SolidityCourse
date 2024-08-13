@@ -22,6 +22,26 @@ contract Hero {
         return addressToHeroes[msg.sender];
     }
 
+    function getStrength(uint hero) public pure returns (uint) {
+        return (hero >> 2) & 0x1F;
+    }
+
+    function getHealth(uint hero) public pure returns (uint) {
+        return (hero >> 7) & 0x1F;
+    }
+
+    function getIntellect(uint hero) public pure returns (uint) {
+        return (hero >> 12) & 0x1F;
+    }
+
+    function getMagic(uint hero) public pure returns (uint) {
+        return (hero >> 17) & 0x1F;
+    }
+
+    function getDex(uint hero) public pure returns (uint) {
+        return (hero >> 22) & 0x1F;
+    }
+
     function generateRandom() public view returns (uint) {
         return
             uint(

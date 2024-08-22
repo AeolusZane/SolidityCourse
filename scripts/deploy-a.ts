@@ -21,7 +21,10 @@ async function fallback() {
     const a = await deploy("A");
     const b = await deploy("B", await a.getAddress());
 
-    printStorage(b, "B", 3);
+    await printStorage(b, "B", 5);
+    await b.setB(0x45);
+    console.log('-----------------');
+    await printStorage(b, "B", 5);
 }
 
 // async function fallback() {
